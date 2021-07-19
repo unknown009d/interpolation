@@ -5,10 +5,10 @@ function factorial(o)
     else
       return o*factorial(o-1);  
 }
-function Newton_interpolation_forward()
+function Newton_interpolation_forward(x_ter,Y_ter,D)
 {
     //x value input
-    var x=[0.2,0.4,0.6,0.8,1.0];
+    var x=x_ter;
     //creating 2d array
     var y=new Array(x.length);
     for(let i=0;i<x.length;i++)
@@ -16,7 +16,7 @@ function Newton_interpolation_forward()
         y[i]=new Array(x.length);
     }
     //y/f(x) value input
-    y[0]=[1.2214,1.4918,1.8221,2.2255,2.7183];
+    y[0]=Y_ter;
     //calcilating the diff table
     for(let i=0;i<(x.length-1);i++)
     {
@@ -36,7 +36,7 @@ function Newton_interpolation_forward()
         console.log();
     }
     //value input for X(destination)
-    var des=0.25;
+    var des=D;
     var U,U_ter;
     U=(des-x[0])/(x[1]-x[0]);
     console.log("U = "+U);
@@ -53,10 +53,10 @@ function Newton_interpolation_forward()
     }
     console.log("The f(x) value is : "+f_x);
 }
-function Newton_interpolation_backward()
+function Newton_interpolation_backward(x_ter,Y_ter,D)
 {
     //x value input
-    var x=[1,2,3,4,5];
+    var x=x_ter;
     //2d Y value
     var y=new Array(x.length);
     for(let i=0;i<x.length;i++)
@@ -64,7 +64,7 @@ function Newton_interpolation_backward()
         y[i]=new Array(x.length);
     }
     //y value initializing
-    y[0]=[0,0.3010,0.4771,0.6020,0.6989];
+    y[0]=Y_ter;
     //calcilating the diff table
     for(let i=0;i<(x.length-1);i++)
     {
@@ -84,12 +84,13 @@ function Newton_interpolation_backward()
         console.log();
     }
      //value input for X(destination)
-    var des=5.3
+    var des=D;
     var U,U_ter;
     U=(des-x[x.length-1])/(x[1]-x[0]);
     console.log("U = "+U);
     var f_x;
     f_x=y[0][x.length-1];
+    
     for(let YU=0;YU<=x.length-2;YU++)
     {
         U_ter=1;
@@ -101,6 +102,13 @@ function Newton_interpolation_backward()
     }
     console.log("The f(x) value is : "+f_x);
 }
+var x=[1891,1901,1911,1921,1931];
+var y=[46,66,81,93,101];
+var t=[1,2,3,4,5,6];
+var d=1925;
+Newton_interpolation_backward(x,y,d);
 
-Newton_interpolation_backward();
-Newton_interpolation_forward();
+var x=[0.2,0.4,0.6,0.8,1.0];
+var y=[1.2214,1.4918,1.8221,2.2255,2.7183];
+var d=0.25;
+Newton_interpolation_forward(x,y,d);
