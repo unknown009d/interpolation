@@ -17,7 +17,7 @@ function Newton_interpolation_forward(x_ter,Y_ter,D)
     }
     //y/f(x) value input
     y[0]=Y_ter;
-    //calcilating the diff table
+    //calculating the diff table
     for(let i=0;i<(x.length-1);i++)
     {
            for(let j=0;j<(x.length-(i+1));j++)
@@ -42,6 +42,7 @@ function Newton_interpolation_forward(x_ter,Y_ter,D)
     console.log("U = "+U);
     var f_x;
     f_x=y[0][0];
+    //calculating the f(x) value
     for(let YU=0;YU<=x.length-2;YU++)
     {
         U_ter=1;
@@ -90,7 +91,7 @@ function Newton_interpolation_backward(x_ter,Y_ter,D)
     console.log("U = "+U);
     var f_x;
     f_x=y[0][x.length-1];
-    
+    //calculating the f(x) value
     for(let YU=0;YU<=x.length-2;YU++)
     {
         U_ter=1;
@@ -102,13 +103,42 @@ function Newton_interpolation_backward(x_ter,Y_ter,D)
     }
     console.log("The f(x) value is : "+f_x);
 }
-var x=[1891,1901,1911,1921,1931];
-var y=[46,66,81,93,101];
-var t=[1,2,3,4,5,6];
-var d=1925;
-Newton_interpolation_backward(x,y,d);
+function Lagranges(let_x,let_y,H)
+{
+    var x=let_x,y=let_y,X=H;
+    var f_x=0,f_y=0;
+    var L=new Array(x.length);
+    for(var ROW=0;ROW<x.length;ROW++)
+    {
+        f_x=1;f_y=1;
+        for(var COL=0;COL<x.length;COL++)
+        {
+            if(ROW!=COL)
+            {
+                f_x*=(X-x[COL]);
+                f_y*=(x[ROW]-x[COL]);
+            }
+            L[ROW]=f_x/f_y;
+        }
+    }
+    console.log(L);
+    /*console.log("----After l val-----");*/
+    f_x=0;
+    for(var i=0;i<x.length;i++)
+    {
+        f_x+=y[i]*L[i];
+    }
+    console.log(f_x);
 
-var x=[0.2,0.4,0.6,0.8,1.0];
-var y=[1.2214,1.4918,1.8221,2.2255,2.7183];
-var d=0.25;
-Newton_interpolation_forward(x,y,d);
+}
+var x=[1,2,3,4,5];
+var y=[2,9,28,65,126];
+var d=1.5;
+if(x.length==y.length)
+{
+    Newton_interpolation_backward(x,y,d);
+    Newton_interpolation_forward(x,y,d);
+    Lagranges(x,y,d);
+}
+else
+   console.log("The length of X and Y should be same:)");    
