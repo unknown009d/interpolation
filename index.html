@@ -1,10 +1,85 @@
-<html>
-<head>
-	<title>
-		Interpolation Method
-	</title>
-</head>
-<body>
-	Test 1
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interpolation(Alpha) | Welcome</title>
+    <link rel="stylesheet" href="css/inStyle.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="mainPart">
+      <section class="section-1">
+        <p class="opa-5"><small>(Alpha Release)</small></p>
+        <h1 class="title">Interpolation</h1>
+        <p>
+          Welcome to interpolation calculator, you can calculate the Newton
+          Forward Method and Newton Backward method here easily.
+        </p>
+        <br />
+        <div class="noteText mb-4">
+          <h3>Instructions :</h3>
+          <div class="pd-in">
+            <p>
+              <small class="opa-7">Step 1 :</small>
+              <br />Select the Method for calculation
+            </p>
+            <p>
+              <small class="opa-7">Step 2 :</small>
+              <br />Textbox will appear to put the values of X,Y
+            </p>
+            <p>
+              <small class="opa-7">Step 3 :</small>
+              <br />Put comma , after one particular data.
+            </p>
+            <p>
+              <small class="opa-7">Step 4 :</small>
+              <br />Make sure the number of entries are same.
+            </p>
+            <p>
+              <small class="opa-7">Step 5 :</small>
+              <br />Enter the Destination Value (f)
+            </p>
+            <p>
+              <small class="opa-7">Step 6 :</small>
+              <br />Click on the calculate button.
+            </p>
+          </div>
+        </div>
+        <div class="btnContent jc-stretch mt-2 mb-2">
+          <button
+            class="btn dw-100 anim"
+            data-anim="anim-start"
+            onclick="reDirect('calc.html')"
+          >
+            <span class="btn-text"> Let's get started </span>
+            <span class="material-icons dicon"> autorenew </span>
+          </button>
+        </div>
+        <div class="dontShow">
+          <input
+            type="checkbox"
+            id="neverShow"
+            class="inpCheck"
+            onchange="changeDSAS(this)"
+          />
+          <label for="neverShow" class="opa-7">
+            Dont show this at startup
+          </label>
+        </div>
+      </section>
+    </main>
+    <script src="js/drb.js"></script>
+    <script>
+      if (localStorage.getItem(DSAS) == 1) reDirect("calc.html");
+      let DSAS_Checkbox = document.getElementById("neverShow");
+      let changeDSAS = (elem) =>
+        localStorage.setItem(DSAS, elem.checked ? 1 : 0);
+      DSAS_Checkbox.checked = localStorage.getItem(DSAS) == 1 ? true : false;
+    </script>
+  </body>
 </html>

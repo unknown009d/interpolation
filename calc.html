@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interpolation(Alpha) | Calculator</title>
+    <link rel="stylesheet" href="css/inStyle.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="mainPart">
+      <section class="section-1">
+        <p class="txt-color opa-6">
+          Please select the method for calculation and then enter X, Y and
+          Destination value and click on the Calculate button. <br />
+          <a class="linkLike" onclick="DSAS_OFF();reDirect('index.html')">For more instructions goto home page.</a>
+        </p>
+        <br />
+        <div class="textContent">
+          <label for="selMethod">Method :</label>
+          <select
+            id="selMethod"
+            class="txt selectItem"
+            onchange="selectValid(this);showS2()"
+          >
+            <option value="0" disabled selected>-- Select Method --</option>
+            <option value="1">Newton Forward Method</option>
+            <option value="2">Newton Backward Method</option>
+          </select>
+        </div>
+        <div id="s2">
+          <div class="textContent">
+            <label for="x_val">Value of X :</label>
+            <input
+              type="tel"
+              class="txt"
+              id="x_val"
+              oninput="validInp()"
+              onkeyup="checkNumber(this)"
+              onblur="checkLastIndex(this)"
+              placeholder="eg. 2.4, 6.3, 12.3, 23.53"
+            />
+          </div>
+          <div class="textContent">
+            <label for="y_val">Value of Y :</label>
+            <input
+              type="tel"
+              class="txt"
+              id="y_val"
+              oninput="validInp()"
+              onkeyup="checkNumber(this)"
+              onblur="checkLastIndex(this)"
+              placeholder="eg. 26.7, 56.4, 9.5, 4.7"
+            />
+          </div>
+          <div class="textContent">
+            <label for="d_val">Destination Value :</label>
+            <input
+              type="tel"
+              class="txt"
+              id="d_val"
+              oninput="validInp()"
+              onkeyup="checkNumber(this)"
+              onblur="checkLastIndex(this)"
+              placeholder="eg. 2.5"
+            />
+          </div>
+          <br />
+          <div class="btnContent jc-stretch mt-2">
+            <button id="btnCalc" class="btn dw-100" onclick="calculateInter()">
+              <span class="btn-text"> Calculate the problem</span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <br /><br />
+      <section id="mainOutput"></section>
+    </main>
+    <script src="js/mainCalc.js"></script>
+    <script src="js/drb.js"></script>
+    <script>
+      let secondSection = document.querySelector("#s2");
+      let selectMethod = document.querySelector("#selMethod");
+      if (selectMethod.value == 0) {
+        secondSection.style.display = "none";
+      }
+      let showS2 = () => {
+        secondSection.style.display = "block";
+      };
+      let d_x_val = document.getElementById("x_val");
+      let d_y_val = document.getElementById("y_val");
+      let d_d_val = document.getElementById("d_val");
+      let btnCalc = document.getElementById("btnCalc");
+      /* Remove this After design 
+      d_x_val.value = "1,2,3,4,5";
+      d_y_val.value = "0,0.3013,0.4771,0.6020,0.6989";
+      d_d_val.value = "5.3";
+      /* --- Remove this --- */
+      let validInp = () => {
+        if (d_x_val.value.length > 0 && d_y_val.value.length > 0) {
+          btnCalc.disabled = false;
+        } else btnCalc.disabled = true;
+      };
+      if (btnCalc) validInp();
+      // Check the last item of the textbox of its not a number
+      let checkLastIndex = (elem) => {
+        let count = 0;
+        for (
+          count = 0;
+          elem.value[elem.value.length - (count + 1)] == ",";
+          count++
+        );
+        let validText = elem.value.slice(0, elem.value.length - count);
+        elem.value = validText;
+      };
+      let calculateInter = () => {
+        let xVal = d_x_val.value.split(",");
+        let yVal = d_y_val.value.split(",");
+        if (xVal.length == yVal.length) {
+          sendData(
+            xVal,
+            yVal,
+            d_d_val.value,
+            document.getElementById("selMethod").value
+          );
+        } else {
+          alert("Enter Values doesn't have the similar number of items");
+        }
+      };
+    </script>
+  </body>
+</html>
